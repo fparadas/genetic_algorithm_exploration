@@ -44,7 +44,7 @@ def test_tournament_selection_failure_competition_size_exceeds_population(
 
 
 def test_select_function_valid_tournament(rng, population):
-    """Tests the select function with a valid tournament selection type."""
+    """Tests the select function twih a valid tournament selection type."""
     result = select(
         rng=rng,
         population=population,
