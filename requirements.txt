@@ -3,3 +3,4 @@ matplotlib
 pandas
 pymoo
 tqdm
+pytest
