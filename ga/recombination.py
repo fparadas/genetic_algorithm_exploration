@@ -13,7 +13,10 @@ class RecombinationMethod(Enum):
 
 
 def recombine(
-    rng, method: RecombinationMethod, selected_population: Population, n_parens: int
+    rng: np.random.Generator,
+    method: RecombinationMethod,
+    selected_population: Population,
+    n_parens: int,
 ) -> Result[Population, str]:
     """
     Recombines selected parents to generate children in a genetic algorithm.

@@ -70,18 +70,18 @@ def initialize_population(
     if population_size < 0:
         return Result.Error("Population size must be non-negative")
 
-    match create_individual_dtype(dim):
-        case Result(value=dtype) if dtype is not None:
-            population = np.array(
-                [
-                    (i, u, 0)
-                    for i, u in enumerate(
-                        distribution_function(*boundaries, size=(population_size, dim))
-                    )
-                ],
-                dtype=dtype,
-            )
+    dtype, err = create_individual_dtype(dim)
+    if err != None:
+        return Result.Error(err)
 
-            return Result.Ok(population)
-        case Result(error=error):
-            return Result.Error(error)
+    population = np.array(
+        [
+            (i, u, 0)
+            for i, u in enumerate(
+                distribution_function(*boundaries, size=(population_size, dim))
+            )
+        ],
+        dtype=dtype,
+    )
+
+    return Result.Ok(population)

@@ -31,33 +31,26 @@ Example of creating and using a Result object:
 ...     print(err.error)  # Outputs: Failure occurred
 """
 
-from typing import Generic, TypeVar, Union, Any
+from typing import Generic, TypeVar, Optional, NamedTuple
 
 T = TypeVar("T")  # Success type
 E = TypeVar("E")  # Error type
 
 
-class Result(Generic[T, E]):
-    __match_args__ = ("value", "error")
+class Result(Generic[T, E], NamedTuple):
+    value: Optional[T] = None
+    error: Optional[E] = None
 
-    def __init__(self, value: Union[T, None] = None, error: Union[E, None] = None):
-        self.value = value
-        self.error = error
-        if value is not None and error is not None:
-            raise ValueError("Result cannot have both value and error")
-        if value is None and error is None:
-            raise ValueError("Result must have either value or error")
-
-    def is_ok(self):
+    def is_ok(self) -> bool:
         return self.value is not None
 
-    def is_error(self):
+    def is_error(self) -> bool:
         return self.error is not None
 
     @classmethod
     def Ok(cls, value: T):
-        return cls(value=value)
+        return cls(value=value, error=None)
 
     @classmethod
     def Error(cls, error: E):
-        return cls(error=error)
+        return cls(value=None, error=error)
