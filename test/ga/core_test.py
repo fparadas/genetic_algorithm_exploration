@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from unittest.mock import patch
 from ga.core import run  # Update with the correct path to your run function
-from ga.types.result import Result
+from utils.result import Result
 from ga.selection import SelectionType
 from ga.recombination import RecombinationMethod
 from ga.mutation import MutationMethod

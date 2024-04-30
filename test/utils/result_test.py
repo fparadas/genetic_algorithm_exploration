@@ -1,5 +1,5 @@
 import pytest
-from ga.types.result import Result
+from utils.result import Result
 
 
 def test_result_ok_unpacking():

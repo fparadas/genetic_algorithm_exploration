@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Callable
 from ga.population import Population
-from ga.types.result import Result
+from utils.result import Result
 from enum import Enum
 
 

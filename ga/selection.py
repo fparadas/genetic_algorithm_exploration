@@ -26,7 +26,7 @@ usage within genetic algorithm workflows.
 
 from enum import Enum
 import numpy as np
-from ga.types.result import Result
+from utils.result import Result
 
 
 class SelectionType(Enum):

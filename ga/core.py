@@ -14,7 +14,6 @@ Dependencies:
 - ga.selection: Provides selection mechanisms like rank and tournament.
 - ga.recombination: Supports recombination methods.
 - ga.mutation: Implements mutation operations.
-- ga.types: Includes custom types like Result for error handling and response.
 
 The module expects all supporting sub-modules (selection, recombination, mutation, types)
 to be appropriately configured and available in the 'ga' package.
@@ -30,7 +29,7 @@ from ga.recombination import RecombinationMethod, recombine
 from ga.mutation import MutationMethod, mutate
 
 from typing import Tuple, Callable
-from ga.types.result import Result
+from utils.result import Result
 
 
 def run(

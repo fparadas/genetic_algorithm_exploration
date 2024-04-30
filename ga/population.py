@@ -1,6 +1,6 @@
 import numpy as np
 from typing import Tuple, Callable
-from ga.types.result import Result
+from utils.result import Result
 
 Population = np.ndarray
 

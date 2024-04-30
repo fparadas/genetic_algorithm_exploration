@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from ga.types.result import Result
+from utils.result import Result
 from ga.population import create_individual_dtype
 from ga.mutation import (
     MutationMethod,

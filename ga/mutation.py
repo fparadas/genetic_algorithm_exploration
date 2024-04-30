@@ -1,5 +1,5 @@
 import numpy as np
-from ga.types.result import Result
+from utils.result import Result
 from ga.population import Population
 from enum import Enum
 

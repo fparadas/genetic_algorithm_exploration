@@ -1,0 +1,5 @@
+- [ ] Add analysis
+- [ ] Add comparison with pymoo
+- [ ] Write report
+- [ ] Implement Min and Max for SelectionType.Rank
+- [ ] Implement Roullete Wheel Selection
