@@ -16,7 +16,7 @@ def recombine(
     rng: np.random.Generator,
     method: RecombinationMethod,
     selected_population: Population,
-    n_parens: int,
+    n_parens: int = 2,
 ) -> Result[Population, str]:
     """
     Recombines selected parents to generate children in a genetic algorithm.

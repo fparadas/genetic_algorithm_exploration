@@ -85,3 +85,31 @@ def initialize_population(
     )
 
     return Result.Ok(population)
+
+
+def update_population(
+    population: Population, new_values: Population
+) -> Result[Population, str]:
+    """
+    Updates an existing population with new values based on indices.
+
+    Parameters:
+    population : Population
+        The current population as a numpy structured array.
+    new_values : Population
+        A structured array containing new individuals to be updated into the population.
+        Each individual must have an 'index' that exists in the original population.
+
+    Returns:
+    Result[Population, str]
+        Returns a Result object containing the updated population or an error message.
+    """
+    if not np.all(np.isin(new_values["index"], population["index"])):
+        return Result.Error("Invalid indices in new values")
+
+    index_map = {item["index"]: item for item in new_values}
+    for i in range(len(population)):
+        if population[i]["index"] in index_map:
+            population[i] = index_map[population[i]["index"]]
+
+    return Result.Ok(population)

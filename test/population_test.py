@@ -1,6 +1,10 @@
 import numpy as np
 import pytest
-from ga.population import create_individual_dtype, initialize_population
+from ga.population import (
+    create_individual_dtype,
+    initialize_population,
+    update_population,
+)
 
 
 def test_create_individual_dtype():
@@ -52,3 +56,23 @@ def test_initialize_population():
     assert initialize_population(
         uniform_distribution, 0, boundaries, population_size
     ).is_error()
+
+
+@pytest.fixture
+def example_population():
+    dtype = create_individual_dtype(2).value
+    return np.array([(0, [1.0, 2.0], 0.5), (1, [3.0, 4.0], 0.7)], dtype=dtype)
+
+
+def test_basic_update(example_population):
+    new_values = np.array([(0, [1.5, 2.5], 0.8)], dtype=example_population.dtype)
+    result = update_population(example_population, new_values)
+    assert result.is_ok()
+    assert np.array_equal(result.value[0]["point"], [1.5, 2.5])
+
+
+def test_invalid_indices(example_population):
+    new_values = np.array([(2, [1.5, 2.5], 0.8)], dtype=example_population.dtype)
+    result = update_population(example_population, new_values)
+    assert result.is_error()
+    assert "Invalid indices in new values" in result.error

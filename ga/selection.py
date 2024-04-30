@@ -49,7 +49,7 @@ def select(
     population: np.ndarray,
     competition_size: int,
     selection_type: SelectionType,
-    selection_params: dict = {},
+    **kwargs,
 ) -> Result:
     """
     Selects individuals from a population according to the specified selection method in a genetic algorithm.
@@ -76,7 +76,7 @@ def select(
                 rng=rng,
                 population=population,
                 competition_size=competition_size,
-                n_competitors=selection_params.get("n_competitors", 2),
+                **kwargs,
             )
         case SelectionType.RANK:
             return rank_selection(population, competition_size)
@@ -91,6 +91,7 @@ def tournament_selection(
     population: np.ndarray,
     competition_size: int,
     n_competitors: int = 2,
+    **kwargs,
 ) -> Result:
     """
     Performs a tournament selection for a genetic algorithm.
@@ -122,7 +123,7 @@ def tournament_selection(
 
     winners = np.array(
         [
-            population[min(group, key=lambda idx: population[idx]["eval"])]
+            population[min(group, key=lambda idx: population[idx]["evaluation"])]
             for group in groups
         ]
     )
@@ -145,4 +146,4 @@ def rank_selection(population: np.ndarray, competition_size: int) -> Result:
     Result
         A Result object containing either the selected population or an error message.
     """
-    return np.sort(population, order="evaluation")[:competition_size]
+    return Result.Ok(np.sort(population, order="evaluation")[:competition_size])

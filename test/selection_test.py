@@ -1,15 +1,17 @@
 import pytest
 import numpy as np
 from ga.selection import tournament_selection, select, SelectionType
+from ga.population import create_individual_dtype
 
 
 @pytest.fixture
 def population():
+    dtype, err = create_individual_dtype(2)
+    if err is not None:
+        raise ValueError(err)
     return np.array(
-        [
-            {"index": i, "point": np.random.random(2), "eval": np.random.random()}
-            for i in range(20)
-        ]
+        [(i, np.random.random(2), np.random.random()) for i in range(20)],
+        dtype=dtype,
     )
 
 
@@ -50,7 +52,7 @@ def test_select_function_valid_tournament(rng, population):
         population=population,
         competition_size=10,
         selection_type=SelectionType.TOURNAMENT,
-        selection_params={"n_competitors": 3},
+        n_competitors=3,
     )
     assert result.is_ok(), "Selection should be successful"
     assert len(result.value) == 3, "Should select exactly 3 winners"
