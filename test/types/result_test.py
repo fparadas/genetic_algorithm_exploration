@@ -30,3 +30,19 @@ def test_result_neither():
     """Test that a Result must be either Ok or Error, not neither."""
     with pytest.raises(ValueError):
         Result()
+
+
+def test_match():
+    """Test the __match_args__ attribute of the Result class."""
+    res = Result.Ok(123)
+    match res:
+        case Result(value) if value is not None:
+            assert value == 123
+        case Result(error) if error is not None:
+            raise AssertionError("Should not match an error")
+    err = Result.Error("Failure occurred")
+    match err:
+        case Result(value) if value is not None:
+            raise AssertionError("Should not match a value")
+        case Result(error) if error is not None:
+            assert error == "Failure occurred"

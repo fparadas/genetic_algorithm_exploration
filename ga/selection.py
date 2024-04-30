@@ -79,7 +79,7 @@ def select(
                 n_competitors=selection_params.get("n_competitors", 2),
             )
         case SelectionType.RANK:
-            return Result.Error("Rank-based selection not implemented yet")
+            return rank_selection(population, competition_size)
         case SelectionType.ROULETTE:
             return Result.Error("Roulette wheel selection not implemented yet")
         case _:
@@ -127,3 +127,22 @@ def tournament_selection(
         ]
     )
     return Result.Ok(winners)
+
+
+def rank_selection(population: np.ndarray, competition_size: int) -> Result:
+    """
+    Performs rank-based selection for a genetic algorithm.
+
+    Parameters:
+    rng :
+        The random number generator used to select individuals.
+    population :
+        An array of individuals, each with a 'eval' attribute representing their fitness.
+    competition_size :
+        The number of individuals selected to participate in the tournament.
+
+    Returns:
+    Result
+        A Result object containing either the selected population or an error message.
+    """
+    return np.sort(population, order="evaluation")[:competition_size]

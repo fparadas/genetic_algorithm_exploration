@@ -38,6 +38,8 @@ E = TypeVar("E")  # Error type
 
 
 class Result(Generic[T, E]):
+    __match_args__ = ("value", "error")
+
     def __init__(self, value: Union[T, None] = None, error: Union[E, None] = None):
         self.value = value
         self.error = error
